@@ -1,11 +1,10 @@
-#!/usr/bin/node
 export default function taskBlock(trueOrFalse) {
-  var task = false;
-  var task2 = true;
-
+  const task = false;
+  const task2 = true;
+  /* eslint-disable no-unused-vars */
   if (trueOrFalse) {
-    let task = true; // This `task` is block-scoped to the if statement
-    let task2 = false; // This `task2` is also block-scoped to the if statement
+    const task = true; // Block-scoped to the if statement, doesn't affect the outer `task`
+    const task2 = false; // Block-scoped to the if statement, doesn't affect the outer `task2`
   }
 
   return [task, task2];
