@@ -1,12 +1,12 @@
+// 0-promise.js
+
 /**
- * Returns a Promise.
- * @returns {Promise} A Promise object.
+ * Returns a resolved Promise.
+ * @returns {Promise} A resolved Promise object.
  */
 function getResponseFromAPI() {
   return new Promise((resolve, reject) => {
-    // Promise body
-    // You can resolve or reject based on your condition
-    // For the purpose of this task, the actual condition is not specified
+    resolve('Success'); // Explicitly resolving the Promise for demonstration purposes
   });
 }
 
