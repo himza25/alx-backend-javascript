@@ -1,10 +1,5 @@
 // 2-then.js
 
-/**
- * Handles responses from an API promise.
- * @param {Promise} promise - The promise to handle.
- * @returns {Promise} A promise that resolves with an object or rejects with an empty Error.
- */
 function handleResponseFromAPI(promise) {
   return promise
     .then(() => {
