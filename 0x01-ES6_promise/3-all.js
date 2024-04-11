@@ -1,15 +1,13 @@
-// 3-all.js
 import { uploadPhoto, createUser } from './utils';
 
-function handleProfileSignup() {
-  Promise.all([uploadPhoto(), createUser()])
-    .then(([photoResponse, userResponse]) => {
-      // Destructuring to directly access properties of the resolved values
-      console.log(`${photoResponse.body} ${userResponse.firstName} ${userResponse.lastName}`);
+export default function handleProfileSignup() {
+  const photoPromise = uploadPhoto();
+  const userPromise = createUser();
+  return Promise.all([photoPromise, userPromise])
+    .then((args) => {
+      console.log(`${args[0].body} ${args[1].firstName} ${args[1].lastName}`);
     })
     .catch(() => {
       console.log('Signup system offline');
     });
 }
-
-export default handleProfileSignup;
