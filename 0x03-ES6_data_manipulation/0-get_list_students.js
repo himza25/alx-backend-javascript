@@ -1,9 +1,5 @@
 // 0-get_list_students.js
 
-/**
- * Returns an array of student objects with their details
- * @returns {Object[]} Array of student objects
- */
 export default function getListStudents() {
   return [
     { id: 1, firstName: 'Guillaume', location: 'San Francisco' },
