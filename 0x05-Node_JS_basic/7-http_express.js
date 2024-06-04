@@ -1,14 +1,13 @@
 #!/usr/bin/node
 const express = require('express');
-const fs = require('fs').promises;
-const path = require('path');
+const fs = require('fs');
 
 const app = express();
 const PORT = 1245;
 
-const countStudents = async (databasePath) => {
+const countStudents = async (path) => {
   try {
-    const csvData = await fs.readFile(databasePath, 'utf8');
+    const csvData = await fs.readFileSync(path, 'utf8');
     const outputLines = [];
     const lines = csvData.split('\n');
     const rows = lines.filter((item) => item.trim() !== '');
@@ -49,19 +48,20 @@ const countStudents = async (databasePath) => {
   }
 };
 
-app.get('/', (req, res) => {
-  res.send('Hello Holberton School!');
+app.get('/', (request, response) => {
+  response.send('Hello Holberton School!');
 });
 
-app.get('/students', async (req, res) => {
-  const database = process.argv[2];
-  res.write('This is the list of our students\n');
-  try {
-    const studentsData = await countStudents(database);
-    res.end(studentsData);
-  } catch (error) {
-    res.status(500).send(error.message);
-  }
+app.get('/students', (request, response) => {
+  countStudents(process.argv[2])
+    .then((data) => {
+      response.send(`This is the list of our students\n${data}`);
+    })
+    .catch(() => {
+      response
+        .status(404)
+        .send('This is the list of our students\nCannot load the database');
+    });
 });
 
 app.listen(PORT, () => {
