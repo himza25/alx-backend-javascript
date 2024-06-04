@@ -1,34 +1,43 @@
+#!/usr/bin/node
 const fs = require('fs');
 
-function countStudents(path) {
+const countStudents = (path) => {
   try {
-    const data = fs.readFileSync(path, 'utf8');
-    const lines = data.trim().split('\n');
-    const students = lines.slice(1).filter(line => line.trim() !== '');
-
-    const numberOfStudents = students.length;
-    console.log(`Number of students: ${numberOfStudents}`);
-
-    const fields = {};
-
-    students.forEach((student) => {
-      const [firstname, lastname, age, field] = student.split(',');
-
-      if (!fields[field]) {
-        fields[field] = [];
-      }
-      fields[field].push(firstname);
-    });
-
-    for (const field in fields) {
-      if (Object.hasOwnProperty.call(fields, field)) {
-        const list = fields[field].join(', ');
-        console.log(`Number of students in ${field}: ${fields[field].length}. List: ${list}`);
-      }
+    const csvData = fs.readFileSync(path, 'utf8');
+    const lines = csvData.split('\n');
+    const rows = lines.filter((item) => item.trim() !== '');
+    console.log(`Number of students: ${rows.length - 1}`);
+    const data = [];
+    const head = [...rows[0].split(',')];
+    rows.splice(0, 1);
+    for (let i = 0; i < rows.length; i += 1) {
+      const student = {};
+      let j = 0;
+      head.forEach((item) => {
+        student[item] = rows[i].split(',')[j];
+        j += 1;
+      });
+      data.push(student);
     }
-  } catch (error) {
+    const countField = {};
+    data.forEach((item) => {
+      if (item.field in countField) {
+        countField[item.field] += 1;
+      } else {
+        countField[item.field] = 1;
+      }
+    });
+    Object.keys(countField).forEach((key) => {
+      let names = 'List: ';
+      names += data
+        .filter((item) => item.field === key)
+        .map((item) => item.firstname)
+        .join(', ');
+      console.log(`Number of students in ${key}: ${countField[key]}. ${names}`);
+    });
+  } catch (e) {
     throw new Error('Cannot load the database');
   }
-}
+};
 
 module.exports = countStudents;
