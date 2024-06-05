@@ -1,9 +1,8 @@
-#!/usr/bin/node
-const fs = require('fs');
+const fs = require('fs').promises;
 
 const countStudents = async (path) => {
   try {
-    const csvData = await fs.readFileSync(path, 'utf8');
+    const csvData = await fs.readFile(path, 'utf8');
     const lines = csvData.split('\n');
     const rows = lines.filter((item) => item.trim() !== '');
     console.log(`Number of students: ${rows.length - 1}`);
