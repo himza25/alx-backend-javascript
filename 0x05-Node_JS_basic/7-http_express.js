@@ -2,6 +2,7 @@ const express = require('express');
 const fs = require('fs');
 
 const app = express();
+const PORT = 1245;
 
 const countStudents = async (path) => {
   try {
@@ -62,8 +63,8 @@ app.get('/students', (request, response) => {
     });
 });
 
-app.listen(1245, () => {
-  console.log('Example app listening on port 1245');
+app.listen(PORT, () => {
+  console.log(`Server is listening on port ${PORT}`);
 });
 
 module.exports = app;
