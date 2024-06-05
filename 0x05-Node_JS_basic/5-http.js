@@ -1,4 +1,3 @@
-#!/usr/bin/node
 const http = require('http');
 const fs = require('fs');
 
@@ -64,14 +63,8 @@ const routes = {
 
 const app = http.createServer((request, response) => {
   response.writeHead(200, { 'Content-Type': 'text/plain' });
-  if (routes[request.url]) {
-    routes[request.url](request, response);
-  } else {
-    response.writeHead(404, { 'Content-Type': 'text/plain' });
-    response.end('Not Found');
-  }
+  routes[request.url](request, response);
 });
-
 app.listen(1245, '127.0.0.1', () => {
   console.log('Server running at http://127.0.0.1:1245/');
 });
