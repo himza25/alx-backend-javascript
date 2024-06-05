@@ -1,4 +1,3 @@
-#!/usr/bin/node
 const fs = require('fs');
 
 const countStudents = (path) => {
