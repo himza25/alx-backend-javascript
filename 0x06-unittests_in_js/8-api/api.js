@@ -7,8 +7,8 @@ app.get('/', (req, res) => {
     res.send('Welcome to the payment system');
 });
 
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
     console.log(`API available on localhost port ${PORT}`);
 });
 
-module.exports = app;
+module.exports = server;

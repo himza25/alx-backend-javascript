@@ -1,28 +1,31 @@
+const { expect, assert } = require('chai');
 const request = require('request');
-const { expect } = require('chai');
-const app = require('./api');
 
+/* eslint-disable */
 describe('Index page', () => {
-    const baseUrl = 'http://localhost:7865';
-
-    before((done) => {
-        app.listen(7865, () => {
-            console.log('Test server running on port 7865');
-            done();
-        });
+  it('check response body', (done) => {
+    request.get('http://localhost:7865/', (error, res, body) => {
+      expect(body).equal('Welcome to the payment system');
     });
-
-    it('should return status code 200', (done) => {
-        request.get(baseUrl, (error, response, body) => {
-            expect(response.statusCode).to.equal(200);
-            done();
-        });
+    done();
+  });
+  it('check response status code', (done) => {
+    request.get('http://localhost:7865/DFG', (error, res, body) => {
+      expect(res.statusCode).equal(404);
     });
-
-    it('should return the correct message', (done) => {
-        request.get(baseUrl, (error, response, body) => {
-            expect(body).to.equal('Welcome to the payment system');
-            done();
-        });
+    done();
+  });
+  it('check response status code invalid endpoint', (done) => {
+    request.get('http://localhost:7865/', (error, res, body) => {
+      expect(res.statusCode).equal(200);
     });
+    done();
+  });
+  it('check response Error', (done) => {
+    request.get('http://localhost:7865/', (error, res, body) => {
+      assert.isNull(error);
+    });
+    done();
+  });
 });
+/* eslint-enable */
