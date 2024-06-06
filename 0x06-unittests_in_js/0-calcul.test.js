@@ -23,7 +23,7 @@ describe('calculateNumber', () => {
     });
 
     it('should handle mixed negative and positive numbers', () => {
-        assert.strictEqual(calculateNumber(-1.5, 3.7), 2);
+        assert.strictEqual(calculateNumber(-1.5, 3.7), 3);
     });
 
     it('should handle zero correctly', () => {
