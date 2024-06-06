@@ -1,0 +1,15 @@
+{
+  "name": "task_0",
+  "version": "1.0.0",
+  "description": "0x06-unittests_in_js",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "mocha": "^8.4.0"
+  },
+  "keywords": []
+}
